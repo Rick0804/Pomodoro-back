@@ -23,13 +23,23 @@ class PomodoroController extends Controller
             'descricao' => $request->descricao,
             'Qntd_pomos' => $request->Qntd_pomos,
         ]);
-        return response()->json(['message' => 'Dados recebidos com sucesso!']);
-
     }
 
     public function show(Request $request){
-
+        $pomos = Pomos::all();
+        return response()->json($pomos);
     }
 
+    public function update(Request $request, $id)
+  {
+    $request->validate([
+      'title' => 'required|max:255',
+      'body' => 'required',
+    ]);
+    $post = Post::find($id);
+    $post->update($request->all());
+    return redirect()->route('posts.index')
+      ->with('success', 'Post updated successfully.');
+  }
 
 }

@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('notas', function (Blueprint $table) {
             $table->id();
+            $table->String('title', 80);
+            $table->String('descricao', 255)
             $table->timestamps();
         });
     }
