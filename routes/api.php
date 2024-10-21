@@ -6,8 +6,9 @@ use App\Http\Controllers\PomodoroController;
 
 
 
-Route::prefix('/')->group(function () {
+Route::prefix('pomos')->group(function () {
     Route::post('/send', [PomodoroController::class, 'store'])->name('store-pom');
     Route::get('/pomos-list', [PomodoroController::class, 'show'])->name('pomos-list');
     Route::put('/pomos-edit/{id}', [PomodoroController::class, 'update'])->name('pomos-edit');
+    Route::delete('/pomos-delete/{id}', [PomodoroController::class, 'delete'])->name('pomos-delete');
 });
