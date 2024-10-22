@@ -30,6 +30,11 @@ class PomodoroController extends Controller
         return response()->json($pomos);
     }
 
+    public function search($id){
+        $pomodoro = Pomos::findOrFail($id);
+        return response()->json($pomodoro);
+    }
+
     public function update(Request $request, $id){
         $request->validate([
             'Pomo' => 'string|max:255',
