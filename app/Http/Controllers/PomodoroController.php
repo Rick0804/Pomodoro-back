@@ -14,8 +14,8 @@ class PomodoroController extends Controller
     public function store(Request $request){
         $request->validate([
             'Pomo' => 'required|string|max:255',
-            'descricao' => 'string|max:255',
-            'Qntd_pomos' => 'required|integer',
+            'descricao' => '',
+            'Qntd_pomos' => 'integer',
         ]);
 
         $pomoCreater = Pomos::create([
@@ -23,13 +23,34 @@ class PomodoroController extends Controller
             'descricao' => $request->descricao,
             'Qntd_pomos' => $request->Qntd_pomos,
         ]);
-        return response()->json(['message' => 'Dados recebidos com sucesso!']);
-
     }
 
     public function show(Request $request){
-
+        $pomos = Pomos::all();
+        return response()->json($pomos);
     }
 
+    public function search($id){
+        $pomodoro = Pomos::findOrFail($id);
+        return response()->json($pomodoro);
+    }
 
+    public function update(Request $request, $id){
+        $request->validate([
+            'Pomo' => 'string|max:255',
+            'descricao' => '',
+            'Qntd_pomos' => 'integer',
+            'Qntd_pomos_feitos' => 'integer'
+
+        ]);
+
+        $pomodoro = Pomos::findOrFail($id);
+
+        $pomodoro->update($request->all());
+    }
+
+    public function delete($id){
+        $pomodoro = Pomos::findOrFail($id);
+        $pomodoro->delete();
+    }
 }
